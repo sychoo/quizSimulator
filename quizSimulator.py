@@ -1,9 +1,23 @@
+#!/usr/local/bin/python3
 # Simon Chu
 # Fri Sep  7 10:02:42 EDT 2018
+# Fri April 23 2019-04-26 14:20:47 EDT 2019
 
+import subprocess
 import random
+import sys
 
-numberOfQuiz = 2
+# check command line arguments
+if (len(sys.argv) != 2):
+    print("usage: quiz <quiz-file>")
+    sys.exit(0)
+
+returned_output = subprocess.check_output("pwd")
+filePath = returned_output.decode("utf-8")[:-1] + "/" + sys.argv[1]
+print(filePath)
+
+# specify number of question per quiz
+numberOfQuiz = 5
 
 def quiz(quesList, answerList, numberOfQuestions, numberOfQuiz):
     numberOfCorrect = 0
@@ -25,7 +39,7 @@ def quiz(quesList, answerList, numberOfQuestions, numberOfQuiz):
 def main():
 
     print("\nQuiz Simulator V1.0")
-    infile = open("all.txt", "r").read().split("\n")
+    infile = open(filePath, "r").read().split("\n")
 
     quesList = []
     answerList = []
@@ -97,4 +111,3 @@ def main():
             print(originalList[i])
             print()
 main()
-
